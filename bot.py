@@ -1,9 +1,10 @@
 import sqlite3
 import yt_dlp
 import os
+BOT_TOKEN = os.environ.get('BOT_TOKEN')
 import requests
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
-BOT_TOKEN = os.environ.get('BOT_TOKEN')
+
 # 1. Initialize the database
 def init_db():
     conn = sqlite3.connect('bot_data.db')
@@ -14,7 +15,6 @@ def init_db():
 
 # 2. ShrinkMe API Function
 def shorten_url(url):
- BOT_TOKEN = os.environ.get''
     api_url = f"https://shrinkme.io/api?api={api_token}&url={url}"
     try:
         response = requests.get(api_url).json()
@@ -50,7 +50,7 @@ async def handle_message(update, context):
 # 5. Run the Bot
 if __name__ == '__main__':
     init_db()
-    app = ApplicationBuilder().token(").build()
+    app = ApplicationBuilder().token(BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", lambda u, c: u.message.reply_text("أرسل لي رابط الفيديو وسأقوم باختصاره وتحميله لك!")))
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_message))
     app.run_polling()
