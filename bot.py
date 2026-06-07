@@ -15,7 +15,9 @@ def init_db():
 
 # 2. ShrinkMe API Function
 def shorten_url(url):
+    api_token = os.environ.get("SHRINKME_API")
     api_url = f"https://shrinkme.io/api?api={api_token}&url={url}"
+    api_token = os.environ.get("SHRINKME_API")
     try:
         response = requests.get(api_url).json()
         return response.get('shortenedUrl', url)
